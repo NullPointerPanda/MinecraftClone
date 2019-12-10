@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 
 public class FPSControll extends FirstPersonCameraController {
 
+
     public FPSControll(Camera camera) {
         super(camera);
     }

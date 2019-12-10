@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 
+import java.util.ArrayList;
+
 import javax.swing.text.AttributeSet;
 
 public class DriveGame extends ApplicationAdapter {
@@ -29,24 +31,25 @@ public class DriveGame extends ApplicationAdapter {
 	private PerspectiveCamera camera;
 	private com.badlogic.gdx.graphics.g3d.Environment environment;
 	private DirtBlock block;
+	private Terrain terrain;
 
 	@Override
 	public void create ()
 	{
 		modelBatch = new ModelBatch();
-
+		terrain = new Terrain(25);
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
 
 		camera = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		camera.position.set(10f, 10f, 10f);
+		camera.position.set(-2f, 2f, -2f);
 		camera.near = cameraNear;
 		camera.far = cameraFar;
 		camera.update();
 
-		block = new DirtBlock();
-		block.setPosition(0, 0, -20);
+		/*block = new DirtBlock();
+		block.setPosition(0, 0, -20);*/
 
 		camera_controller = new FPSControll(camera);
 		camera_controller.setDegreesPerPixel(0.1f);
@@ -64,7 +67,10 @@ public class DriveGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		modelBatch.begin(camera);
-		modelBatch.render(block.getInstance(), environment);
+		for(DirtBlock d : terrain.returnList()){
+			modelBatch.render(d.getInstance(), environment);
+		}
+		//modelBatch.render(block.getInstance(), environment);
 		modelBatch.end();
 
 
