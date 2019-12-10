@@ -26,11 +26,10 @@ public class DriveGame extends ApplicationAdapter {
 	private Texture crosshair;
 	private ModelInstance instance;*/
 
-	private FPSControll camera_controller;
+	private FPSControll cameraController;
 	private ModelBatch modelBatch;
 	private PerspectiveCamera camera;
 	private com.badlogic.gdx.graphics.g3d.Environment environment;
-	private DirtBlock block;
 	private Terrain terrain;
 
 	@Override
@@ -48,13 +47,10 @@ public class DriveGame extends ApplicationAdapter {
 		camera.far = cameraFar;
 		camera.update();
 
-		/*block = new DirtBlock();
-		block.setPosition(0, 0, -20);*/
-
-		camera_controller = new FPSControll(camera);
-		camera_controller.setDegreesPerPixel(0.1f);
-		camera_controller.setVelocity(10);
-		Gdx.input.setInputProcessor(camera_controller);
+		cameraController = new FPSControll(camera);
+		cameraController.setDegreesPerPixel(0.1f);
+		cameraController.setVelocity(10);
+		Gdx.input.setInputProcessor(cameraController);
 		Gdx.input.setCursorCatched(true);
 
 
@@ -62,7 +58,7 @@ public class DriveGame extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		camera_controller.update();
+		cameraController.update();
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
@@ -70,15 +66,12 @@ public class DriveGame extends ApplicationAdapter {
 		for(DirtBlock d : terrain.returnList()){
 			modelBatch.render(d.getInstance(), environment);
 		}
-		//modelBatch.render(block.getInstance(), environment);
 		modelBatch.end();
-
 
 	}
 	
 	@Override
 	public void dispose () {
 		modelBatch.dispose();
-		block.dispose();
 	}
 }
