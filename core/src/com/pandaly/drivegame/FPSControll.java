@@ -3,9 +3,10 @@ package com.pandaly.drivegame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 
-public class FPSControll extends FirstPersonCameraController {
+public class FPSControll extends CameraInputController {
 
 
     public FPSControll(Camera camera) {

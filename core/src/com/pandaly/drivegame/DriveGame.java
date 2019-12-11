@@ -2,6 +2,7 @@ package com.pandaly.drivegame;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 
 import java.util.ArrayList;
 
@@ -48,10 +50,7 @@ public class DriveGame extends ApplicationAdapter {
 		camera.update();
 
 		cameraController = new FPSControll(camera);
-		cameraController.setDegreesPerPixel(0.1f);
-		cameraController.setVelocity(10);
 		Gdx.input.setInputProcessor(cameraController);
-		Gdx.input.setCursorCatched(true);
 
 
 	}
@@ -59,6 +58,7 @@ public class DriveGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		cameraController.update();
+
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
