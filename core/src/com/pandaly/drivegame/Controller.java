@@ -14,6 +14,7 @@ public class Controller extends FirstPersonCameraController {
     private final Vector3 tmpVec = new Vector3();
     private final Camera camera;
 
+    private boolean pressDown = false;
 
     public Controller(Camera camera) {
         super(camera);
@@ -37,19 +38,39 @@ public class Controller extends FirstPersonCameraController {
         tmpVec.set(camera.direction).crs(camera.up).nor();
         camera.direction.rotate(tmpVec,deltaY);
         tmpVec.set(camera.position);
+
+
         return true;
+    }
+
+    public boolean getPressed()
+    {
+        return pressDown;
+    }
+
+    public void move(){
+
+        tmpVec.z += 0.05f * camera.direction.z;
+        tmpVec.x += 0.05f * camera.direction.x;
+        camera.position.set(tmpVec);
+
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        tmpVec.z -= 0.5f;
-        camera.position.set(tmpVec);
-        //System.out.println("position: "+camera.position+" direction: "+camera.direction);
+        if(screenX < 450 && screenY > 200)
+        {
+            pressDown = true;
+        }
+
+
+        System.out.println("position: "+camera.position+" direction: "+camera.direction);
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        pressDown = false;
         return true;
     }
 }

@@ -32,6 +32,7 @@ public class DriveGame extends ApplicationAdapter {
 	private Terrain terrain;
 	private BitmapFont font;
 	private SpriteBatch batch;
+	boolean activeTouch = false;
 
 	@Override
 	public void create ()
@@ -51,8 +52,9 @@ public class DriveGame extends ApplicationAdapter {
 		camera.near = cameraNear;
 		camera.far = cameraFar;
 		camera.update();
-		framerate = Gdx.graphics.getFramesPerSecond();
+
 		cameraController = new Controller(camera);
+
 
 		Gdx.input.setInputProcessor(cameraController);
 
@@ -62,6 +64,20 @@ public class DriveGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		cameraController.update();
+		framerate = Gdx.graphics.getFramesPerSecond();
+
+
+
+		if (cameraController.getPressed()) {
+			if (activeTouch) {
+				cameraController.move();
+			} else {
+				// starting a new touch ..
+				activeTouch = true;
+			}
+		} else {
+			activeTouch = false;
+		}
 
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
