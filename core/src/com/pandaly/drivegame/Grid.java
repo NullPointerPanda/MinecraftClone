@@ -66,6 +66,8 @@ public class Grid implements Disposable {
             int z = Math.round(line.z);
 
             if(x > (terrainSize - 1) || y > (terrainSize - 1) || z > (terrainSize - 1) || x < 0 || y < 0 || z < 0){
+                break;
+            }
                 if(terrain[x][y][z] != null){
                     if(type == null){
                         if(terrain[x][y][z] != null){
@@ -77,9 +79,10 @@ public class Grid implements Disposable {
                         terrain[lastX][lastY][lastZ] = new DirtBlock();
                         updateGrid();
                     }
+                    break;
 
                 }
-            }
+
 
             lastX = x;
             lastY = y;
