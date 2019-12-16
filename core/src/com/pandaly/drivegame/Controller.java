@@ -32,8 +32,8 @@ public class Controller extends FirstPersonCameraController {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        float deltaX = Gdx.input.getDeltaX() * degreesPerPixel;
-        float deltaY = Gdx.input.getDeltaY() * degreesPerPixel;
+        float deltaX = -Gdx.input.getDeltaX() * degreesPerPixel;
+        float deltaY = -Gdx.input.getDeltaY() * degreesPerPixel;
         camera.direction.rotate(camera.up,deltaX);
         tmpVec.set(camera.direction).crs(camera.up).nor();
         camera.direction.rotate(tmpVec,deltaY);
@@ -50,8 +50,8 @@ public class Controller extends FirstPersonCameraController {
 
     public void move(){
 
-        tmpVec.z += 0.05f * camera.direction.z;
-        tmpVec.x += 0.05f * camera.direction.x;
+        tmpVec.z += 0.3f * camera.direction.z;
+        tmpVec.x += 0.3f * camera.direction.x;
         camera.position.set(tmpVec);
 
     }

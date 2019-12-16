@@ -16,9 +16,6 @@ public class DriveGame extends ApplicationAdapter {
 	private final float cameraNear = 1;
 	private final float cameraFar = 300;
 	private float framerate;
-	//private float currentSecond;
-	//private int framesLastSecond;
-	//private int frameCount;
 	//private final float crosshairSize = 55;
 
 	/*private SpriteBatch spriteBatch;
@@ -29,50 +26,44 @@ public class DriveGame extends ApplicationAdapter {
 	private ModelBatch modelBatch;
 	private PerspectiveCamera camera;
 	private com.badlogic.gdx.graphics.g3d.Environment environment;
-	private Terrain terrain;
 	private BitmapFont font;
 	private SpriteBatch batch;
 	boolean activeTouch = false;
+	private Grid grid;
 
 	@Override
 	public void create ()
 	{
 		modelBatch = new ModelBatch();
-		terrain = new Terrain(25);
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
+
 
 		font = new BitmapFont();
 		batch = new SpriteBatch();
 
 		camera = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		camera.position.set(2f, 2f, -2f);
+		camera.position.set(0f, 10f, 5f);
 		camera.direction.set(-0.9f,0.08f,-0.16f);
 		camera.near = cameraNear;
 		camera.far = cameraFar;
+		grid = new Grid();
 		camera.update();
-
 		cameraController = new Controller(camera);
-
-
 		Gdx.input.setInputProcessor(cameraController);
-
-
 	}
 
 	@Override
 	public void render () {
 		cameraController.update();
+
 		framerate = Gdx.graphics.getFramesPerSecond();
-
-
 
 		if (cameraController.getPressed()) {
 			if (activeTouch) {
 				cameraController.move();
 			} else {
-				// starting a new touch ..
 				activeTouch = true;
 			}
 		} else {
@@ -83,12 +74,10 @@ public class DriveGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		modelBatch.begin(camera);
-		for(DirtBlock d : terrain.returnList()){
-			modelBatch.render(d.getInstance(), environment);
-		}
+		grid.renderGrid(modelBatch,environment);
 		modelBatch.end();
-		batch.begin();
 
+		batch.begin();
 		font.draw(batch, (int)framerate + " fps", Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
 		batch.end();
 
@@ -96,7 +85,7 @@ public class DriveGame extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		modelBatch.dispose();
 		batch.dispose();
+		grid.dispose();
 	}
 }
