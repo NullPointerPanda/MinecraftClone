@@ -36,7 +36,6 @@ public class Grid implements Disposable {
                     float z = k * pixelSize;
                     if(terrain[i][j][k] != null){
                         terrain[i][j][k].setPosition(x,y,z);
-                        System.out.println("BlockCo: "+terrain[i][j][k].getPosition());
                     }
                 }
             }
@@ -55,40 +54,43 @@ public class Grid implements Disposable {
         }
     }
 
-    public void setViewVektor(Vector3 vekPos, Vector3 vekDirc, Block.Type type){
-        for(int i = 1; i > terrainSize * 4; i++){
-            vekDirc.nor();
-            vekDirc.scl(i);
-            Vector3 line = vekPos.add(vekDirc);
-            line.scl(1/pixelSize);
+    public void breakBlock(Vector3 vekPos, Vector3 vekDirc){
+        Vector3 tmpPos = new Vector3(vekPos);
+        Vector3 tmpDir = new Vector3(vekDirc);
+        for(int i = 1; i < terrainSize; i++) {
+            tmpDir.nor();
+            tmpDir.scl(i);
+            System.out.println(tmpDir);
+            System.out.println(tmpPos);
+            Vector3 line = tmpPos.add(tmpDir);
+            line.scl(1 / pixelSize);
+            System.out.println(line);
+
             int x = Math.round(line.x);
             int y = Math.round(line.y);
             int z = Math.round(line.z);
 
-            if(x > (terrainSize - 1) || y > (terrainSize - 1) || z > (terrainSize - 1) || x < 0 || y < 0 || z < 0){
-                break;
+            if (terrain[x][y][z] != null) {
+                terrain[x][y][z].dispose();
+                terrain[x][y][z] = null;
+                updateGrid();
             }
-                if(terrain[x][y][z] != null){
-                    if(type == null){
-                        if(terrain[x][y][z] != null){
-                            terrain[x][y][z].dispose();
-                            terrain[x][y][z] = null;
-                            updateGrid();
-                        }
-                    }else if(type == Block.Type.DirtBlock){
-                        terrain[lastX][lastY][lastZ] = new DirtBlock();
-                        updateGrid();
-                    }
-                    break;
+        }
+    }
 
-                }
 
+
+
+            /*} else if (type == Block.Type.DirtBlock) {
+                terrain[lastX][lastY][lastZ] = new DirtBlock();
+                updateGrid();
+            }
 
             lastX = x;
             lastY = y;
-            lastZ = z;
-        }
-    }
+            lastZ = z;*/
+
+
 
 
     @Override

@@ -16,10 +16,13 @@ public class Controller extends FirstPersonCameraController {
 
     private boolean pressDown = false;
 
+    private Grid grid;
+
     public Controller(Camera camera) {
         super(camera);
         this.camera = camera;
         tmpVec.set(camera.position);
+        grid = new Grid();
     }
 
     public void setVelocity(float velocity){
@@ -48,6 +51,8 @@ public class Controller extends FirstPersonCameraController {
         return pressDown;
     }
 
+
+
     public void move(){
 
         tmpVec.z += 0.3f * camera.direction.z;
@@ -56,21 +61,29 @@ public class Controller extends FirstPersonCameraController {
 
     }
 
+
+
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         if(screenX < 450 && screenY > 200)
         {
             pressDown = true;
         }
+        else if(screenX > 1600 && screenY > 200)
+        {
+            grid.breakBlock(camera.position, camera.direction);
+        }
 
 
-        System.out.println("position: "+camera.position+" direction: "+camera.direction);
+        //System.out.println("position: "+camera.position+" direction: "+camera.direction);
         return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         pressDown = false;
+
         return true;
     }
 }

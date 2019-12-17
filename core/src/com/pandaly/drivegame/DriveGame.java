@@ -28,7 +28,8 @@ public class DriveGame extends ApplicationAdapter {
 	private com.badlogic.gdx.graphics.g3d.Environment environment;
 	private BitmapFont font;
 	private SpriteBatch batch;
-	boolean activeTouch = false;
+	boolean touchMove = false;
+	boolean touchBreak = false;
 	private Grid grid;
 
 	@Override
@@ -61,14 +62,16 @@ public class DriveGame extends ApplicationAdapter {
 		framerate = Gdx.graphics.getFramesPerSecond();
 
 		if (cameraController.getPressed()) {
-			if (activeTouch) {
+			if (touchMove) {
 				cameraController.move();
 			} else {
-				activeTouch = true;
+				touchMove = true;
 			}
 		} else {
-			activeTouch = false;
+			touchMove = false;
 		}
+
+
 
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
