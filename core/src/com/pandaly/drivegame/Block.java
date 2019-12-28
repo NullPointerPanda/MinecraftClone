@@ -61,9 +61,16 @@ public class Block implements Disposable
         model.dispose();
     }
 
+
     public enum Type{
         DirtBlock,
+        AirBlock,
         StoneBlock;
+    }
+
+    public void changeType(Type type)
+    {
+        this.type = type;
     }
 
 }

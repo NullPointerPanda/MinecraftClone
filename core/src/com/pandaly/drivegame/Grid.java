@@ -12,7 +12,7 @@ public class Grid implements Disposable {
 
     private Block[][][] terrain;
     private int terrainSize = 25;
-    private int pixelSize = 5;
+    private float pixelSize = 5;
     private int lastX = 0;
     private int lastY = 0;
     private int lastZ = 0;
@@ -54,17 +54,22 @@ public class Grid implements Disposable {
         }
     }
 
+
+
     public void breakBlock(Vector3 vekPos, Vector3 vekDirc){
+
         Vector3 tmpPos = new Vector3(vekPos);
         Vector3 tmpDir = new Vector3(vekDirc);
-        for(int i = 1; i < terrainSize; i++) {
+
+        for(int i = 1; i < terrainSize * 2; i++) {
             tmpDir.nor();
             tmpDir.scl(i);
-            System.out.println(tmpDir);
-            System.out.println(tmpPos);
-            Vector3 line = tmpPos.add(tmpDir);
+            //System.out.println("TmpDir: " + tmpDir);
+            //System.out.println("TmpPos: " + tmpPos);
+            Vector3 line = new Vector3(tmpPos);
+            line.add(tmpDir);
             line.scl(1 / pixelSize);
-            System.out.println(line);
+            //System.out.println("Line: " + line);
 
             int x = Math.round(line.x);
             int y = Math.round(line.y);
@@ -72,8 +77,13 @@ public class Grid implements Disposable {
 
             if (terrain[x][y][z] != null) {
                 terrain[x][y][z].dispose();
-                terrain[x][y][z] = null;
+                terrain[x][y][z].changeType(Block.Type.AirBlock);
+
+                //terrain[x][y][z] = null;
+
                 updateGrid();
+                i = terrainSize * 2;
+
             }
         }
     }
@@ -89,7 +99,6 @@ public class Grid implements Disposable {
             lastX = x;
             lastY = y;
             lastZ = z;*/
-
 
 
 
