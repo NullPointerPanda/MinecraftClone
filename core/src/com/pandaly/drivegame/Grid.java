@@ -16,6 +16,8 @@ public class Grid implements Disposable {
     private int lastX = 0;
     private int lastY = 0;
     private int lastZ = 0;
+    private int count = 0;
+
 
     public Grid(){
         terrain = new Block[terrainSize][terrainSize][terrainSize];
@@ -28,6 +30,7 @@ public class Grid implements Disposable {
     }
 
     public void updateGrid() {
+        count = 0;
         for(int i = 0; i < terrainSize; i++){
             for(int j = 0; j < terrainSize; j++){
                 for(int k = 0; k < terrainSize; k++){
@@ -36,13 +39,16 @@ public class Grid implements Disposable {
                     float z = k * pixelSize;
                     if(terrain[i][j][k] != null){
                         terrain[i][j][k].setPosition(x,y,z);
+                        count++;
                     }
                 }
             }
         }
+        System.out.println(count);
     }
 
     public void renderGrid(ModelBatch modelBatch, Environment environment){
+
         for(int i = 0; i < terrainSize; i++){
             for(int j = 0; j < terrainSize; j++){
                 for(int k = 0; k < terrainSize; k++){
@@ -76,15 +82,21 @@ public class Grid implements Disposable {
             int z = Math.round(line.z);
 
             if (terrain[x][y][z] != null) {
-                terrain[x][y][z].dispose();
-                terrain[x][y][z].changeType(Block.Type.AirBlock);
+               // terrain[x][y][z].dispose();
+               // terrain[x][y][z].changeType(Block.Type.AirBlock);
 
                 //terrain[x][y][z] = null;
-
+                System.out.println(lastX + " " + lastY + " " + lastZ);
+                System.out.println(x + " " + y + " " + z);
+                terrain[lastX][lastY][lastZ] = new DirtBlock();
+                terrain[lastX][lastY][lastZ].setPosition(x*5,y*5,z*5);
                 updateGrid();
-                i = terrainSize * 2;
 
+                i = terrainSize * 2;
             }
+            lastX = x;
+            lastY = y;
+            lastZ = z;
         }
     }
 
@@ -109,6 +121,7 @@ public class Grid implements Disposable {
                 for(int k = 0; k < terrainSize; k++){
                     if(terrain[i][j][k] != null) {
                         terrain[i][j][k].dispose();
+
                     }
                 }
             }

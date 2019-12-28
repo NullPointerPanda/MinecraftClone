@@ -90,5 +90,6 @@ public class DriveGame extends ApplicationAdapter {
 	public void dispose () {
 		batch.dispose();
 		grid.dispose();
+		modelBatch.dispose();
 	}
 }
