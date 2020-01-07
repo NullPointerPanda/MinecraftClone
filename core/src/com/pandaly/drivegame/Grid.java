@@ -20,6 +20,11 @@ public class Grid implements Disposable {
 
 
     public Grid(){
+
+    }
+
+    public void createGrid()
+    {
         terrain = new Block[terrainSize][terrainSize][terrainSize];
         for(int i = 0; i < terrainSize; i++){
             for(int k = 0; k < terrainSize; k++){
@@ -62,7 +67,7 @@ public class Grid implements Disposable {
 
 
 
-    public void breakBlock(Vector3 vekPos, Vector3 vekDirc){
+    public void setBlock(Vector3 vekPos, Vector3 vekDirc){
 
         Vector3 tmpPos = new Vector3(vekPos);
         Vector3 tmpDir = new Vector3(vekDirc);
@@ -100,7 +105,38 @@ public class Grid implements Disposable {
         }
     }
 
+    public void breakBlock(Vector3 vekPos, Vector3 vekDirc){
 
+        Vector3 tmpPos = new Vector3(vekPos);
+        Vector3 tmpDir = new Vector3(vekDirc);
+
+        for(int i = 1; i < terrainSize * 2; i++) {
+            tmpDir.nor();
+            tmpDir.scl(i);
+            //System.out.println("TmpDir: " + tmpDir);
+            //System.out.println("TmpPos: " + tmpPos);
+            Vector3 line = new Vector3(tmpPos);
+            line.add(tmpDir);
+            line.scl(1 / pixelSize);
+            //System.out.println("Line: " + line);
+
+            int x = Math.round(line.x);
+            int y = Math.round(line.y);
+            int z = Math.round(line.z);
+
+            if (terrain[x][y][z] != null) {
+                terrain[x][y][z].dispose();
+                terrain[x][y][z] = null;
+
+                updateGrid();
+
+                i = terrainSize * 2;
+            }
+            lastX = x;
+            lastY = y;
+            lastZ = z;
+        }
+    }
 
 
             /*} else if (type == Block.Type.DirtBlock) {
@@ -111,6 +147,19 @@ public class Grid implements Disposable {
             lastX = x;
             lastY = y;
             lastZ = z;*/
+
+    public void code(){
+        for(int i = 0; i < terrainSize; i++){
+            for(int j = 0; j < terrainSize; j++){
+                for(int k = 0; k < terrainSize; k++){
+                    terrain[i][3][k] = new DirtBlock();
+                }
+            }
+        }
+
+
+        updateGrid();
+    }
 
 
 

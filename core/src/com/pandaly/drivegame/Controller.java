@@ -18,11 +18,11 @@ public class Controller extends FirstPersonCameraController {
 
     private Grid grid;
 
-    public Controller(Camera camera) {
+    public Controller(Camera camera, Grid grid) {
         super(camera);
         this.camera = camera;
         tmpVec.set(camera.position);
-        grid = new Grid();
+        this.grid = grid;
     }
 
     public void setVelocity(float velocity){
@@ -73,6 +73,7 @@ public class Controller extends FirstPersonCameraController {
         else if(screenX > 1600 && screenY > 200)
         {
             grid.breakBlock(camera.position, camera.direction);
+           //grid.code();
         }
 
 

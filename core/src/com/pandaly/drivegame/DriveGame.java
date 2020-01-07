@@ -32,6 +32,7 @@ public class DriveGame extends ApplicationAdapter {
 	boolean touchBreak = false;
 	private Grid grid;
 
+
 	@Override
 	public void create ()
 	{
@@ -50,8 +51,9 @@ public class DriveGame extends ApplicationAdapter {
 		camera.near = cameraNear;
 		camera.far = cameraFar;
 		grid = new Grid();
+		grid.createGrid();
 		camera.update();
-		cameraController = new Controller(camera);
+		cameraController = new Controller(camera,grid);
 		Gdx.input.setInputProcessor(cameraController);
 	}
 
