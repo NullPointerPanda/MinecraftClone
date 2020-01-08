@@ -75,22 +75,17 @@ public class Grid implements Disposable {
         for(int i = 1; i < terrainSize * 2; i++) {
             tmpDir.nor();
             tmpDir.scl(i);
-            //System.out.println("TmpDir: " + tmpDir);
-            //System.out.println("TmpPos: " + tmpPos);
             Vector3 line = new Vector3(tmpPos);
+
             line.add(tmpDir);
             line.scl(1 / pixelSize);
-            //System.out.println("Line: " + line);
 
             int x = Math.round(line.x);
             int y = Math.round(line.y);
             int z = Math.round(line.z);
 
             if (terrain[x][y][z] != null) {
-               // terrain[x][y][z].dispose();
-               // terrain[x][y][z].changeType(Block.Type.AirBlock);
 
-                //terrain[x][y][z] = null;
                 System.out.println(lastX + " " + lastY + " " + lastZ);
                 System.out.println(x + " " + y + " " + z);
                 terrain[lastX][lastY][lastZ] = new DirtBlock();
@@ -113,12 +108,10 @@ public class Grid implements Disposable {
         for(int i = 1; i < terrainSize * 2; i++) {
             tmpDir.nor();
             tmpDir.scl(i);
-            //System.out.println("TmpDir: " + tmpDir);
-            //System.out.println("TmpPos: " + tmpPos);
+
             Vector3 line = new Vector3(tmpPos);
             line.add(tmpDir);
             line.scl(1 / pixelSize);
-            //System.out.println("Line: " + line);
 
             int x = Math.round(line.x);
             int y = Math.round(line.y);
@@ -138,30 +131,10 @@ public class Grid implements Disposable {
         }
     }
 
-
-            /*} else if (type == Block.Type.DirtBlock) {
-                terrain[lastX][lastY][lastZ] = new DirtBlock();
-                updateGrid();
-            }
-
-            lastX = x;
-            lastY = y;
-            lastZ = z;*/
-
-    public void code(){
-        for(int i = 0; i < terrainSize; i++){
-            for(int j = 0; j < terrainSize; j++){
-                for(int k = 0; k < terrainSize; k++){
-                    terrain[i][3][k] = new DirtBlock();
-                }
-            }
-        }
-
-
-        updateGrid();
+    public Block getTerrain(int x,int y, int z)
+    {
+        return terrain[x][y][z];
     }
-
-
 
     @Override
     public void dispose() {

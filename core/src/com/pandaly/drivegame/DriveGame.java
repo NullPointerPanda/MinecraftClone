@@ -4,12 +4,16 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+
+import java.awt.Image;
 
 public class DriveGame extends ApplicationAdapter {
 	private final float fieldOfView = 67;
@@ -18,9 +22,9 @@ public class DriveGame extends ApplicationAdapter {
 	private float framerate;
 	//private final float crosshairSize = 55;
 
-	/*private SpriteBatch spriteBatch;
-	private Texture crosshair;
-	private ModelInstance instance;*/
+	private Sprite crosshair;
+	private Texture crosshairTexture;
+	//private ModelInstance instance;
 
 	private Controller cameraController;
 	private ModelBatch modelBatch;
@@ -29,7 +33,7 @@ public class DriveGame extends ApplicationAdapter {
 	private BitmapFont font;
 	private SpriteBatch batch;
 	boolean touchMove = false;
-	boolean touchBreak = false;
+
 	private Grid grid;
 
 
@@ -40,17 +44,18 @@ public class DriveGame extends ApplicationAdapter {
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
-
-
 		font = new BitmapFont();
 		batch = new SpriteBatch();
-
+		crosshairTexture = new Texture(Gdx.files.internal("Crosshair.png"));
+		crosshair = new Sprite(crosshairTexture);
 		camera = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		grid = new Grid();
+
 		camera.position.set(0f, 10f, 5f);
 		camera.direction.set(-0.9f,0.08f,-0.16f);
 		camera.near = cameraNear;
 		camera.far = cameraFar;
-		grid = new Grid();
+
 		grid.createGrid();
 		camera.update();
 		cameraController = new Controller(camera,grid);
@@ -83,9 +88,9 @@ public class DriveGame extends ApplicationAdapter {
 		modelBatch.end();
 
 		batch.begin();
-		font.draw(batch, (int)framerate + " fps", Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+		font.draw(batch, (int)framerate + " fps", Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() - 40), Gdx.graphics.getHeight() - 40);
+		batch.draw(crosshair,Gdx.graphics.getWidth()/2-57f,Gdx.graphics.getHeight()/2-64f,Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
 		batch.end();
-
 	}
 	
 	@Override

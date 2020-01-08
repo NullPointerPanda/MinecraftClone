@@ -42,7 +42,6 @@ public class Controller extends FirstPersonCameraController {
         camera.direction.rotate(tmpVec,deltaY);
         tmpVec.set(camera.position);
 
-
         return true;
     }
 
@@ -51,18 +50,14 @@ public class Controller extends FirstPersonCameraController {
         return pressDown;
     }
 
-
-
     public void move(){
 
-        tmpVec.z += 0.3f * camera.direction.z;
-        tmpVec.x += 0.3f * camera.direction.x;
-        camera.position.set(tmpVec);
+            tmpVec.z += 0.3f * camera.direction.z;
+            tmpVec.x += 0.3f * camera.direction.x;
+            camera.position.set(tmpVec);
+
 
     }
-
-
-
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -70,14 +65,15 @@ public class Controller extends FirstPersonCameraController {
         {
             pressDown = true;
         }
-        else if(screenX > 1600 && screenY > 200)
+        else if(screenX > 1600 && screenX < 1800 && screenY > 700 && screenY < 900)
+        {
+            grid.setBlock(camera.position, camera.direction);
+        }
+        else if(screenX > 1799 && screenX < 2000 && screenY > 700 && screenY < 900)
         {
             grid.breakBlock(camera.position, camera.direction);
-           //grid.code();
         }
 
-
-        //System.out.println("position: "+camera.position+" direction: "+camera.direction);
         return true;
     }
 
