@@ -51,8 +51,8 @@ public class DriveGame extends ApplicationAdapter {
 		camera = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		grid = new Grid();
 
-		camera.position.set(0f, 10f, 5f);
-		camera.direction.set(0.9f,0.08f,0.1f);
+		camera.position.set(10f, 10f, 10f);
+		camera.direction.set(1.0f,0.0f,1.0f);
 		camera.near = cameraNear;
 		camera.far = cameraFar;
 

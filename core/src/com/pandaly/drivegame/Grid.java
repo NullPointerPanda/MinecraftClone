@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.IntArray;
+
+import java.util.ArrayList;
 
 
 public class Grid implements Disposable {
@@ -146,14 +149,116 @@ public class Grid implements Disposable {
 
     }
 
-    public void checkForBlock(Camera camera)
+    public IntArray checkForBlock(Vector3 vekPos)
     {
+        Vector3 tmpPos = new Vector3(vekPos);
+        Vector3 direction1 = new Vector3(1.0f,2.0f,0.0f);
+        Vector3 direction2 = new Vector3(1.0f,1.0f,0.0f);
+        int x1 = 0;
+        int y1 = 0;
+        int z1 = 0;
+        int x2 = 0;
+        int y2 = 0;
+        int z2 = 0;
 
+        IntArray coordinates = new IntArray();
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == 1)
+            {
+                direction1.x = 0.0f;
+                direction1.z = 1.0f;
+                direction2.x = 0.0f;
+                direction2.z = 1.0f;
+            }
+            /*else if (i == 2)
+            {
+                direction1.x = 0.0f;
+                direction1.z = -1.0f;
+                direction2.x = 0.0f;
+                direction2.z = -1.0f;
+            }
+            else if (i == 3)
+            {
+                direction1.x = -1.0f;
+                direction1.z = 0.0f;
+                direction2.x = -1.0f;
+                direction2.z = 0.0f;
+            }*/
+            direction1.nor();
+            direction1.scl(5);
+
+            direction2.nor();
+            direction2.scl(5);
+
+            Vector3 lineUp = new Vector3(tmpPos);
+            lineUp.add(direction1);
+            lineUp.scl(1 / pixelSize);
+
+            Vector3 lineDown = new Vector3(tmpPos);
+            lineDown.add(direction1);
+            lineDown.scl(1 / pixelSize);
+
+            if (i == 0)
+            {
+                x1 = Math.round(lineUp.x)+1;
+                y1 = 2;
+                z1 = Math.round(lineUp.z);
+
+                x2 = Math.round(lineDown.x) + 1;
+                y2 = 1;
+                z2 = Math.round(lineDown.z);
+
+            }
+            else if (i == 1)
+            {
+                x1 = Math.round(lineUp.x);
+                y1 = 2;
+                z1 = Math.round(lineUp.z) + 1;
+
+                x2 = Math.round(lineDown.x);
+                y2 = 1;
+                z2 = Math.round(lineDown.z) + 1;
+            }
+            /*else if (i == 2)
+            {
+                x1 = Math.round(lineUp.x);
+                y1 = 2;
+                z1 = Math.round(lineUp.z) - 1;
+
+                x2 = Math.round(lineDown.x);
+                y2 = 1;
+                z2 = Math.round(lineDown.z) - 1;
+            }
+            else if (i == 3)
+            {
+                x1 = Math.round(lineUp.x) - 1;
+                y1 = 2;
+                z1 = Math.round(lineUp.z);
+
+                x2 = Math.round(lineDown.x) - 1;
+                y2 = 1;
+                z2 = Math.round(lineDown.z);
+            }*/
+
+
+
+            coordinates.add(x1,y1,z1);
+            coordinates.add(x2,y2,z2);
+
+        }
+        return coordinates;
     }
 
     public Block getTerrain(int x,int y, int z)
     {
         return terrain[x][y][z];
+    }
+
+    public Block[][][] getTerrain()
+    {
+        return terrain;
     }
 
     @Override

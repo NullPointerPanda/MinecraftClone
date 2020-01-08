@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.IntArray;
 
 
 public class Controller extends FirstPersonCameraController {
@@ -51,9 +52,48 @@ public class Controller extends FirstPersonCameraController {
     }
 
     public void move(){
+        IntArray coordinates = new IntArray(grid.checkForBlock(camera.position));
+        //for (int i = 0; i < 6; i++)
+        //{
+            //if(grid.getTerrain(coordinates.get(0),coordinates.get(1),coordinates.get(2)).getPosition().x >= camera.position.set(tmpVec).x ||
+            //        grid.getTerrain(coordinates.get(0),coordinates.get(1),coordinates.get(2)).getPosition().z <= camera.position.set(tmpVec).z )
+            //{||
+        //                       grid.getTerrain(coordinates.get(0),coordinates.get(1),coordinates.get(2)).getPosition().z <= camera.position.set(tmpVec).z
+
+
+            //}
+
+        //}
+        //Block puffer = grid.getBlockInFront(camera.position,camera.direction,false,40);
+        //puffer.setPosition(puffer.getPosition().x,puffer.getPosition().y-1, puffer.getPosition().z);
+        if (grid.getBlockInFront(camera.position,camera.direction,false,50) == null)
+        {
             tmpVec.z += 0.5f * camera.direction.z;
             tmpVec.x += 0.5f * camera.direction.x;
             camera.position.set(tmpVec);
+        }
+        else if (grid.getTerrain(coordinates.get(0),coordinates.get(1),coordinates.get(2)) != null)
+        {
+            if(grid.getTerrain(coordinates.get(0),coordinates.get(1),coordinates.get(2)).getPosition().x >= camera.position.set(tmpVec).x )
+            {
+
+            }
+
+
+            System.out.println("VEKTOR OBEN X: " + grid.getTerrain(coordinates.get(0),coordinates.get(1),coordinates.get(2)).getPosition().x);
+        }
+        else
+        {
+
+        }
+
+
+        if (grid.getTerrain(coordinates.get(0),coordinates.get(1),coordinates.get(2)) != null)
+        {
+            System.out.println("VEKTOR UNTEN X: " +grid.getTerrain(coordinates.get(0),coordinates.get(1),coordinates.get(2)).getPosition().z);
+        }
+
+        System.out.println("KOORDINATEN: " + coordinates.get(0) + " " + coordinates.get(1) + " " + coordinates.get(2));
 
 
 
