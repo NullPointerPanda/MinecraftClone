@@ -102,10 +102,30 @@ public class Grid implements Disposable {
 
     public void breakBlock(Vector3 vekPos, Vector3 vekDirc){
 
-        Vector3 tmpPos = new Vector3(vekPos);
-        Vector3 tmpDir = new Vector3(vekDirc);
 
         for(int i = 1; i < terrainSize * 2; i++) {
+
+            if (getBlockInFront(vekPos,vekDirc,false,i) != null) {
+                getBlockInFront(vekPos,vekDirc,false,i).dispose();
+                getBlockInFront(vekPos,vekDirc,true,i);
+
+                updateGrid();
+
+                i = terrainSize * 2;
+            }
+
+        }
+    }
+
+    public Block getBlockInFront(Vector3 vekPos, Vector3 vekDirc, boolean destroy, int i)
+    {
+        Vector3 tmpPos = new Vector3(vekPos);
+        Vector3 tmpDir = new Vector3(vekDirc);
+        int x = 0;
+        int y = 0;
+        int z = 0;
+
+
             tmpDir.nor();
             tmpDir.scl(i);
 
@@ -113,22 +133,22 @@ public class Grid implements Disposable {
             line.add(tmpDir);
             line.scl(1 / pixelSize);
 
-            int x = Math.round(line.x);
-            int y = Math.round(line.y);
-            int z = Math.round(line.z);
+            x = Math.round(line.x);
+            y = Math.round(line.y);
+            z = Math.round(line.z);
 
-            if (terrain[x][y][z] != null) {
-                terrain[x][y][z].dispose();
+            if (destroy == true)
+            {
                 terrain[x][y][z] = null;
-
-                updateGrid();
-
-                i = terrainSize * 2;
             }
-            lastX = x;
-            lastY = y;
-            lastZ = z;
-        }
+
+        return terrain[x][y][z];
+
+    }
+
+    public void checkForBlock(Camera camera)
+    {
+
     }
 
     public Block getTerrain(int x,int y, int z)

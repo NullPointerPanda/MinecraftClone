@@ -51,10 +51,10 @@ public class Controller extends FirstPersonCameraController {
     }
 
     public void move(){
-
-            tmpVec.z += 0.3f * camera.direction.z;
-            tmpVec.x += 0.3f * camera.direction.x;
+            tmpVec.z += 0.5f * camera.direction.z;
+            tmpVec.x += 0.5f * camera.direction.x;
             camera.position.set(tmpVec);
+
 
 
     }

@@ -52,7 +52,7 @@ public class DriveGame extends ApplicationAdapter {
 		grid = new Grid();
 
 		camera.position.set(0f, 10f, 5f);
-		camera.direction.set(-0.9f,0.08f,-0.16f);
+		camera.direction.set(0.9f,0.08f,0.1f);
 		camera.near = cameraNear;
 		camera.far = cameraFar;
 
