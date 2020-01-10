@@ -1,6 +1,7 @@
 package com.pandaly.drivegame;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -14,12 +15,15 @@ import java.util.ArrayList;
 public class Grid implements Disposable {
 
     private Block[][][] terrain;
-    private int terrainSize = 25;
+    private int terrainSize = 30;
     private float pixelSize = 5;
     private int lastX = 0;
     private int lastY = 0;
     private int lastZ = 0;
     private int count = 0;
+    private int x = 0;
+    private int y = 0;
+    private int z = 0;
 
 
     public Grid(){
@@ -149,6 +153,68 @@ public class Grid implements Disposable {
 
     }
 
+    public boolean hittingBlock(Vector3 vekPos, Vector3 tmpVec)
+    {
+        Vector3 point = new Vector3(vekPos);
+        point.scl(0.25f);
+        x = (int) Math.floor(point.x);
+        System.out.println(x);
+        //int y = Math.round(point.y);
+        z = Math.round(point.z);
+
+        if(terrain[x - 1][1][z] != null && terrain[x-1][1][z].getPosition().x >= vekPos.set(tmpVec).x)
+        {
+            return true;
+        }
+        /*else if (terrain[x][1][z-1] != null)
+        {
+            return true;
+        }
+        else if (terrain[x][1][z] != null)
+        {
+            return true;
+        }
+        else if (terrain[x][1][z] != null)
+        {
+            return true;
+        }*/
+        else
+        {
+            return false;
+        }
+    }
+
+    public Vector3 checkNearby(Camera camera, Vector3 tmpVec)
+    {
+            tmpVec.x += (0.5f * camera.direction.x);
+
+        return tmpVec;
+    }
+
+    public Block getTerrain(int x,int y, int z)
+    {
+        return terrain[x][y][z];
+    }
+
+    public Block[][][] getTerrain()
+    {
+        return terrain;
+    }
+
+    @Override
+    public void dispose() {
+        for(int i = 0; i < terrainSize; i++){
+            for(int j = 0; j < terrainSize; j++){
+                for(int k = 0; k < terrainSize; k++){
+                    if(terrain[i][j][k] != null) {
+                        terrain[i][j][k].dispose();
+
+                    }
+                }
+            }
+        }
+    }
+
     public IntArray checkForBlock(Vector3 vekPos)
     {
         Vector3 tmpPos = new Vector3(vekPos);
@@ -172,7 +238,7 @@ public class Grid implements Disposable {
                 direction2.x = 0.0f;
                 direction2.z = 1.0f;
             }
-            /*else if (i == 2)
+            else if (i == 2)
             {
                 direction1.x = 0.0f;
                 direction1.z = -1.0f;
@@ -185,7 +251,7 @@ public class Grid implements Disposable {
                 direction1.z = 0.0f;
                 direction2.x = -1.0f;
                 direction2.z = 0.0f;
-            }*/
+            }
             direction1.nor();
             direction1.scl(5);
 
@@ -221,7 +287,7 @@ public class Grid implements Disposable {
                 y2 = 1;
                 z2 = Math.round(lineDown.z) + 1;
             }
-            /*else if (i == 2)
+            else if (i == 2)
             {
                 x1 = Math.round(lineUp.x);
                 y1 = 2;
@@ -240,7 +306,7 @@ public class Grid implements Disposable {
                 x2 = Math.round(lineDown.x) - 1;
                 y2 = 1;
                 z2 = Math.round(lineDown.z);
-            }*/
+            }
 
 
 
@@ -249,29 +315,5 @@ public class Grid implements Disposable {
 
         }
         return coordinates;
-    }
-
-    public Block getTerrain(int x,int y, int z)
-    {
-        return terrain[x][y][z];
-    }
-
-    public Block[][][] getTerrain()
-    {
-        return terrain;
-    }
-
-    @Override
-    public void dispose() {
-        for(int i = 0; i < terrainSize; i++){
-            for(int j = 0; j < terrainSize; j++){
-                for(int k = 0; k < terrainSize; k++){
-                    if(terrain[i][j][k] != null) {
-                        terrain[i][j][k].dispose();
-
-                    }
-                }
-            }
-        }
     }
 }
