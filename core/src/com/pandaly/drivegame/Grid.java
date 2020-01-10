@@ -15,12 +15,12 @@ import java.util.ArrayList;
 public class Grid implements Disposable {
 
     private Block[][][] terrain;
-    private int terrainSize = 30;
+    private int terrainSize = 50;
+    private int renderDistance = 20;
     private float pixelSize = 5;
     private int lastX = 0;
     private int lastY = 0;
     private int lastZ = 0;
-    private int count = 0;
     private int x = 0;
     private int y = 0;
     private int z = 0;
@@ -42,7 +42,7 @@ public class Grid implements Disposable {
     }
 
     public void updateGrid() {
-        count = 0;
+
         for(int i = 0; i < terrainSize; i++){
             for(int j = 0; j < terrainSize; j++){
                 for(int k = 0; k < terrainSize; k++){
@@ -51,21 +51,19 @@ public class Grid implements Disposable {
                     float z = k * pixelSize;
                     if(terrain[i][j][k] != null){
                         terrain[i][j][k].setPosition(x,y,z);
-                        count++;
                     }
                 }
             }
         }
-        System.out.println(count);
     }
 
-    public void renderGrid(ModelBatch modelBatch, Environment environment){
+    public void renderGrid(ModelBatch modelBatch, Environment environment, Camera camera){
 
-        for(int i = 0; i < terrainSize; i++){
+        for(int i = -5; i < renderDistance/2; i++){
             for(int j = 0; j < terrainSize; j++){
-                for(int k = 0; k < terrainSize; k++){
-                    if(terrain[i][j][k] != null){
-                    modelBatch.render(terrain[i][j][k].getInstance(),environment);
+                for(int k = -5; k < renderDistance/2; k++){
+                    if(terrain[Math.round(camera.position.x) / (int) pixelSize + i][j][Math.round(camera.position.z) / (int) pixelSize + k] != null){
+                    modelBatch.render(terrain[Math.round(camera.position.x) / (int) pixelSize + i][j][Math.round(camera.position.z) / (int) pixelSize + k].getInstance(),environment);
                     }
                 }
             }

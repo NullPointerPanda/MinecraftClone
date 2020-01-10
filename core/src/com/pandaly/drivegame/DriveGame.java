@@ -51,7 +51,7 @@ public class DriveGame extends ApplicationAdapter {
 		camera = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		grid = new Grid();
 
-		camera.position.set(10f, 10f, 10f);
+		camera.position.set(50f, 10f, 50f);
 		camera.direction.set(1.0f,0.0f,1.0f);
 		camera.near = cameraNear;
 		camera.far = cameraFar;
@@ -84,7 +84,7 @@ public class DriveGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		modelBatch.begin(camera);
-		grid.renderGrid(modelBatch,environment);
+		grid.renderGrid(modelBatch,environment, camera);
 		modelBatch.end();
 
 		batch.begin();
