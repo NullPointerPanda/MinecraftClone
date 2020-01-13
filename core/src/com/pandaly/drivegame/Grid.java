@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class Grid implements Disposable {
 
     private Block[][][] terrain;
-    private int terrainSize = 50;
-    private int renderDistance = 20;
+    private int terrainSize = 25;
+    private int renderDistance = 30;
     private float pixelSize = 5;
     private int lastX = 0;
     private int lastY = 0;
@@ -59,11 +59,13 @@ public class Grid implements Disposable {
 
     public void renderGrid(ModelBatch modelBatch, Environment environment, Camera camera){
 
-        for(int i = -5; i < renderDistance/2; i++){
+        for(int i = 0/*-5*/; i < terrainSize/*renderDistance/2*/; i++){
             for(int j = 0; j < terrainSize; j++){
-                for(int k = -5; k < renderDistance/2; k++){
-                    if(terrain[Math.round(camera.position.x) / (int) pixelSize + i][j][Math.round(camera.position.z) / (int) pixelSize + k] != null){
-                    modelBatch.render(terrain[Math.round(camera.position.x) / (int) pixelSize + i][j][Math.round(camera.position.z) / (int) pixelSize + k].getInstance(),environment);
+                for(int k = 0/*-5*/; k < terrainSize/*renderDistance/2*/; k++){
+                    //if(terrain[Math.round(camera.position.x) / (int) pixelSize + i][j][Math.round(camera.position.z) / (int) pixelSize + k] != null){
+                    //modelBatch.render(terrain[Math.round(camera.position.x) / (int) pixelSize + i][j][Math.round(camera.position.z) / (int) pixelSize + k].getInstance(),environment);
+                    if (terrain[i][j][k] != null){
+                        modelBatch.render(terrain[i][j][k].getInstance(),environment);
                     }
                 }
             }
@@ -154,28 +156,39 @@ public class Grid implements Disposable {
     public boolean hittingBlock(Vector3 vekPos, Vector3 tmpVec)
     {
         Vector3 point = new Vector3(vekPos);
-        point.scl(0.25f);
-        x = (int) Math.floor(point.x);
-        System.out.println(x);
-        //int y = Math.round(point.y);
-        z = Math.round(point.z);
 
-        if(terrain[x - 1][1][z] != null && terrain[x-1][1][z].getPosition().x >= vekPos.set(tmpVec).x)
+        x = Math.round(point.x)/ 5;
+
+        //int y = Math.round(point.y);
+        z = Math.round(point.z) / 5;
+        System.out.println(x - 1+ " " + z);
+
+
+        if(terrain[x - 1][1][z] != null && vekPos.set(tmpVec).x <= terrain[x-1][1][z].getPosition().x + 5)
+        {
+            if (vekPos.set(tmpVec).z <= terrain[x-1][1][z].getPosition().z-5)
+            {
+                return false;
+                    //System.out.println(terrain[x-1][1][z].getPosition().z-2.5f);
+                    //System.out.println(vekPos.set(tmpVec).z);
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else if (terrain[x+1][1][z] != null && vekPos.set(tmpVec).x <= terrain[x+1][1][z].getPosition().x + 5)
         {
             return true;
         }
-        /*else if (terrain[x][1][z-1] != null)
-        {
-            return true;
-        }
-        else if (terrain[x][1][z] != null)
-        {
-            return true;
-        }
-        else if (terrain[x][1][z] != null)
-        {
-            return true;
-        }*/
+       // else if (terrain[x][1][z - 1] != null && vekPos.set(tmpVec).z <= terrain[x-1][1][z].getPosition().z + 5)
+       // {
+       //     return true;
+       // }
+       // else if (terrain[x][1][z + 1] != null && vekPos.set(tmpVec).z <= terrain[x-1][1][z].getPosition().z + 5)
+       // {
+       //     return true;
+       // }
         else
         {
             return false;
@@ -184,7 +197,7 @@ public class Grid implements Disposable {
 
     public Vector3 checkNearby(Camera camera, Vector3 tmpVec)
     {
-            tmpVec.x += (0.5f * camera.direction.x);
+            tmpVec.z += (0.5f * camera.direction.z);
 
         return tmpVec;
     }
