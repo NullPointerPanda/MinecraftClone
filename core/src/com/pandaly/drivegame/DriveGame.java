@@ -1,7 +1,9 @@
 package com.pandaly.drivegame;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,17 +17,13 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 
 import java.awt.Image;
 
-public class DriveGame extends ApplicationAdapter {
+public class DriveGame implements Screen {
 	private final float fieldOfView = 67;
 	private final float cameraNear = 1;
 	private final float cameraFar = 300;
 	private float framerate;
-	//private final float crosshairSize = 55;
-
 	private Sprite crosshair;
 	private Texture crosshairTexture;
-	//private ModelInstance instance;
-
 	private Controller cameraController;
 	private ModelBatch modelBatch;
 	private PerspectiveCamera camera;
@@ -33,13 +31,19 @@ public class DriveGame extends ApplicationAdapter {
 	private BitmapFont font;
 	private SpriteBatch batch;
 	boolean touchMove = false;
-
 	private Grid grid;
+	private Game game;
 
+	public DriveGame(Game game){
+		this.game = game;
+	}
+
+	public DriveGame() {
+		super();
+	}
 
 	@Override
-	public void create ()
-	{
+	public void show() {
 		modelBatch = new ModelBatch();
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
@@ -63,7 +67,7 @@ public class DriveGame extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () {
+	public void render(float delta) {
 		cameraController.update();
 
 		framerate = Gdx.graphics.getFramesPerSecond();
@@ -78,8 +82,6 @@ public class DriveGame extends ApplicationAdapter {
 			touchMove = false;
 		}
 
-
-
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
@@ -92,11 +94,31 @@ public class DriveGame extends ApplicationAdapter {
 		batch.draw(crosshair,Gdx.graphics.getWidth()/2-57f,Gdx.graphics.getHeight()/2-64f,Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
 		batch.end();
 	}
-	
+
 	@Override
-	public void dispose () {
-		batch.dispose();
-		grid.dispose();
-		modelBatch.dispose();
+	public void resize(int width, int height) {
+
 	}
+
+	@Override
+	public void pause() {
+
+	}
+
+	@Override
+	public void resume() {
+
+	}
+
+	@Override
+	public void hide() {
+
+	}
+
+    @Override
+    public void dispose () {
+        batch.dispose();
+        grid.dispose();
+        modelBatch.dispose();
+    }
 }
