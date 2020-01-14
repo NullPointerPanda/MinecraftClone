@@ -1,6 +1,7 @@
 package com.pandaly.drivegame;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -17,7 +18,7 @@ import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 
 import java.awt.Image;
 
-public class DriveGame implements Screen {
+public class DriveGame implements Screen{
 	private final float fieldOfView = 67;
 	private final float cameraNear = 1;
 	private final float cameraFar = 300;
