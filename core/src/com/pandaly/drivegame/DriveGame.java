@@ -27,6 +27,12 @@ public class DriveGame implements Screen{
 	private float framerate;
 	private Sprite crosshair;
 	private Texture crosshairTexture;
+	private Sprite axe;
+	private Texture axeTexture;
+	private Sprite blockPic;
+	private Texture blockPicTexture;
+	private Sprite dpad;
+	private Texture dpadTexture;
 	private Controller cameraController;
 	private ModelBatch modelBatch;
 	private PerspectiveCamera camera;
@@ -55,6 +61,16 @@ public class DriveGame implements Screen{
 		batch = new SpriteBatch();
 		crosshairTexture = new Texture(Gdx.files.internal("Crosshair.png"));
 		crosshair = new Sprite(crosshairTexture);
+
+		axeTexture = new Texture(Gdx.files.internal("axe.png"));
+		axe = new Sprite(axeTexture);
+
+        blockPicTexture = new Texture(Gdx.files.internal("block.png"));
+        blockPic = new Sprite(blockPicTexture);
+
+		dpadTexture = new Texture(Gdx.files.internal("dpad.png"));
+		dpad = new Sprite(dpadTexture);
+
 		camera = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		grid = new Grid();
 
@@ -97,6 +113,9 @@ public class DriveGame implements Screen{
 		batch.begin();
 		font.draw(batch, (int)framerate + " fps", Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() - 40), Gdx.graphics.getHeight() - 40);
 		batch.draw(crosshair,Gdx.graphics.getWidth()/2-57f,Gdx.graphics.getHeight()/2-64f,Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
+		batch.draw(axe, Gdx.graphics.getWidth() - 128, Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 128,128);
+        batch.draw(blockPic, Gdx.graphics.getWidth() - (128 * 2), Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 128,128);
+		batch.draw(dpad, Gdx.graphics.getWidth() - Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 512,512);
 		batch.end();
 	}
 

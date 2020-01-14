@@ -70,15 +70,15 @@ public class Controller extends FirstPersonCameraController {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(screenX < 450 && screenY > 200)
+        if(screenX >= Gdx.graphics.getWidth() - Gdx.graphics.getWidth() && screenX < Gdx.graphics.getWidth() - Gdx.graphics.getWidth() + 512 && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 512)
         {
             pressDown = true;
         }
-        else if(screenX > 1600 && screenX < 1800 && screenY > 700 && screenY < 900)
+        else if(screenX >= Gdx.graphics.getWidth() - (128*2) && screenX <= Gdx.graphics.getWidth() - 128 && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 128)
         {
             grid.setBlock(camera.position, camera.direction);
         }
-        else if(screenX > 1799 && screenX < 2000 && screenY > 700 && screenY < 900)
+        else if(screenX >= Gdx.graphics.getWidth() - 128 && screenX <= Gdx.graphics.getWidth() && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 128)
         {
             grid.breakBlock(camera.position, camera.direction);
         }

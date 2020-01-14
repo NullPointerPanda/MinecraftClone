@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -13,6 +14,7 @@ public class StartScreen extends Game {
     private Game game;
     private Sprite logo;
     private Texture logoTexture;
+    private BitmapFont font;
     private SpriteBatch batch;
     private DriveGame puffer;
     private boolean switched;
@@ -25,7 +27,9 @@ public class StartScreen extends Game {
     public void create() {
         batch = new SpriteBatch();
         logoTexture = new Texture(Gdx.files.internal("Logo.jpeg"));
-        logo = new Sprite(logoTexture,-250, -150, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        logo = new Sprite(logoTexture,Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() + 250), Gdx.graphics.getHeight() - (Gdx.graphics.getHeight() + 150), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        font = new BitmapFont();
+        font.getData().setScale(5,5);
         switched = true;
     }
 
@@ -44,6 +48,7 @@ public class StartScreen extends Game {
 
         batch.begin();
         logo.draw(batch);
+        font.draw(batch, " Click to Play", Gdx.graphics.getWidth() - (Gdx.graphics.getWidth()/2), Gdx.graphics.getHeight() - (Gdx.graphics.getHeight()/2));
         batch.end();
         super.render();
     }
