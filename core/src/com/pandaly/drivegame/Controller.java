@@ -54,17 +54,17 @@ public class Controller extends FirstPersonCameraController {
     }
 
     public void move(){
-        if (grid.hittingBlock(camera.position,tmpVec) == true)
-        {
-            moveVector = new Vector3(grid.checkNearby(camera,tmpVec));
-            camera.position.set(moveVector);
-        }
-        else
-        {
+        //if (grid.hittingBlock(camera.position,tmpVec) != 0)
+        //{
+        //    moveVector = new Vector3(grid.checkNearby(camera,tmpVec,grid.hittingBlock(camera.position,tmpVec)));
+        //    camera.position.set(moveVector);
+        //}
+        //else
+        //{
             tmpVec.z += 0.5f * camera.direction.z;
             tmpVec.x += 0.5f * camera.direction.x;
             camera.position.set(tmpVec);
-        }
+        //}
 
     }
 

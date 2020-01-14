@@ -93,8 +93,7 @@ public class Grid implements Disposable {
 
             if (terrain[x][y][z] != null) {
 
-                System.out.println(lastX + " " + lastY + " " + lastZ);
-                System.out.println(x + " " + y + " " + z);
+
                 terrain[lastX][lastY][lastZ] = new DirtBlock();
                 terrain[lastX][lastY][lastZ].setPosition(x*5,y*5,z*5);
                 updateGrid();
@@ -120,6 +119,7 @@ public class Grid implements Disposable {
 
                 i = terrainSize * 2;
             }
+
 
         }
     }
@@ -153,51 +153,63 @@ public class Grid implements Disposable {
 
     }
 
-    public boolean hittingBlock(Vector3 vekPos, Vector3 tmpVec)
+    /*public int hittingBlock(Vector3 vekPos, Vector3 tmpVec)
     {
+        int side = 0;
         Vector3 point = new Vector3(vekPos);
+        Vector3 tmpPoint = new Vector3(tmpVec);
+        point.set(tmpPoint);
 
         x = Math.round(point.x)/ 5;
 
         //int y = Math.round(point.y);
         z = Math.round(point.z) / 5;
-        System.out.println(x - 1+ " " + z);
 
 
-        if(terrain[x - 1][1][z] != null && vekPos.set(tmpVec).x <= terrain[x-1][1][z].getPosition().x + 5)
+        if((terrain[x - 1][1][z]) != null && point.x <= (terrain[x-1][1][z].getPosition().x + 5))
         {
-            if (vekPos.set(tmpVec).z <= terrain[x-1][1][z].getPosition().z-5)
+            System.out.println("Spielerposition: " + point.x);
+            System.out.println("Terrain: " + (terrain[x-1][1][z].getPosition().x + 5));
+            point.z += 5;
+            if ((point.z) >= (terrain[x-1][1][z].getPosition().z - 5))
             {
-                return false;
-                    //System.out.println(terrain[x-1][1][z].getPosition().z-2.5f);
-                    //System.out.println(vekPos.set(tmpVec).z);
+                //System.out.println("Terrain: " + (terrain[x-1][1][z].getPosition().z));
+                //System.out.println("Player: " + point.z);
+                side = 1;
+
             }
             else
             {
-                return true;
             }
-        }
-        else if (terrain[x+1][1][z] != null && vekPos.set(tmpVec).x <= terrain[x+1][1][z].getPosition().x + 5)
-        {
-            return true;
-        }
-       // else if (terrain[x][1][z - 1] != null && vekPos.set(tmpVec).z <= terrain[x-1][1][z].getPosition().z + 5)
-       // {
-       //     return true;
-       // }
-       // else if (terrain[x][1][z + 1] != null && vekPos.set(tmpVec).z <= terrain[x-1][1][z].getPosition().z + 5)
-       // {
-       //     return true;
-       // }
-        else
-        {
-            return false;
-        }
-    }
 
-    public Vector3 checkNearby(Camera camera, Vector3 tmpVec)
+        }
+        else if (terrain[x+1][1][z] != null && point.x <= terrain[x+1][1][z].getPosition().x + 5)
+        {
+                side = 1;
+
+
+        }
+        else if (terrain[x][1][z - 1] != null && point.z <= terrain[x-1][1][z].getPosition().z - 5)
+        {
+            side = 2;
+        }
+        else if (terrain[x][1][z + 1] != null && point.z <= terrain[x-1][1][z].getPosition().z - 5)
+        {
+            side = 2;
+        }
+        return side;
+    }*/
+
+    public Vector3 checkNearby(Camera camera, Vector3 tmpVec, int side)
     {
+        if (side == 1)
+        {
             tmpVec.z += (0.5f * camera.direction.z);
+        }
+        else if (side == 2)
+        {
+            tmpVec.x += (0.5f * camera.direction.x);
+        }
 
         return tmpVec;
     }
@@ -226,7 +238,7 @@ public class Grid implements Disposable {
         }
     }
 
-    public IntArray checkForBlock(Vector3 vekPos)
+   /* public IntArray checkForBlock(Vector3 vekPos)
     {
         Vector3 tmpPos = new Vector3(vekPos);
         Vector3 direction1 = new Vector3(1.0f,2.0f,0.0f);
@@ -326,5 +338,5 @@ public class Grid implements Disposable {
 
         }
         return coordinates;
-    }
+    }*/
 }

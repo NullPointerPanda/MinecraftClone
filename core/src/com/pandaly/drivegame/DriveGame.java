@@ -101,7 +101,7 @@ public class DriveGame implements Screen{
 			touchMove = false;
 		}
 
-		Gdx.gl.glClearColor(135/255f, 206/255f, 235/255f, 1);
+		Gdx.gl.glClearColor(135/255f, 175/255f, 255/255f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
