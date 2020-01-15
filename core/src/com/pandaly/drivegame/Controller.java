@@ -66,15 +66,15 @@ public class Controller extends FirstPersonCameraController {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if(screenX >= Gdx.graphics.getWidth() - Gdx.graphics.getWidth() && screenX < Gdx.graphics.getWidth() - Gdx.graphics.getWidth() + 512 && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 512)
+        if(screenX >= Gdx.graphics.getWidth() - Gdx.graphics.getWidth() && screenX < Gdx.graphics.getWidth() - Gdx.graphics.getWidth() + 356 && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 356)
         {
             pressDown = true;
         }
-        else if(screenX >= Gdx.graphics.getWidth() - (128*2) && screenX <= Gdx.graphics.getWidth() - 128 && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 128)
+        else if(screenX >= Gdx.graphics.getWidth() - (228*2) && screenX <= Gdx.graphics.getWidth() - 228 && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 228)
         {
             grid.setBlock(camera.position, camera.direction);
         }
-        else if(screenX >= Gdx.graphics.getWidth() - 128 && screenX <= Gdx.graphics.getWidth() && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 128)
+        else if(screenX >= Gdx.graphics.getWidth() - 228 && screenX <= Gdx.graphics.getWidth() && screenY <= Gdx.graphics.getHeight() && screenY >= Gdx.graphics.getHeight() - 228)
         {
             grid.breakBlock(camera.position, camera.direction);
         }

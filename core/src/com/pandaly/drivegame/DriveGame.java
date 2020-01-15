@@ -78,8 +78,8 @@ public class DriveGame implements Screen{
 
 		camera = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		grid = new Grid();
-		camera.position.set(50f, 10f, 50f);
-		camera.direction.set(1.0f,0.0f,1.0f);
+		camera.position.set(65f, 10f, 35f);
+		camera.direction.set(-1.0f,0.0f,0.0f);
 		camera.near = cameraNear;
 		camera.far = cameraFar;
 
@@ -117,9 +117,9 @@ public class DriveGame implements Screen{
 		batch.begin();
 		font.draw(batch, (int)framerate + " fps", Gdx.graphics.getWidth() - (Gdx.graphics.getWidth() - 40), Gdx.graphics.getHeight() - 40);
 		batch.draw(crosshair,Gdx.graphics.getWidth()/2-57f,Gdx.graphics.getHeight()/2-64f,Gdx.graphics.getHeight()/10, Gdx.graphics.getHeight()/10);
-		batch.draw(axe, Gdx.graphics.getWidth() - 128, Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 128,128);
-        batch.draw(blockPic, Gdx.graphics.getWidth() - (128 * 2), Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 128,128);
-		batch.draw(dpad, Gdx.graphics.getWidth() - Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 512,512);
+		batch.draw(axe, Gdx.graphics.getWidth() - 228, Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 228,228);
+        batch.draw(blockPic, Gdx.graphics.getWidth() - (228 * 2), Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 228,228);
+		batch.draw(dpad, Gdx.graphics.getWidth() - Gdx.graphics.getWidth(), Gdx.graphics.getHeight() - Gdx.graphics.getHeight(), 356,356);
 		batch.end();
 	}
 

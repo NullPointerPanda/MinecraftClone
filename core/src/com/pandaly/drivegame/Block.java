@@ -64,9 +64,15 @@ public class Block implements Disposable
     }
 
 
+    public Type getType()
+    {
+        return type;
+    }
+
     public enum Type{
         DirtBlock,
-        StoneBlock;
+        WoodenBlock,
+        StoneBlock
     }
 
 }
