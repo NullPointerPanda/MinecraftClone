@@ -21,8 +21,6 @@ public class Controller extends FirstPersonCameraController {
     private final Vector3 tmpVec = new Vector3();
     private final Camera camera;
 
-    private Vector3 moveVector;
-
     private boolean pressDown = false;
 
     private Grid grid;
@@ -60,18 +58,10 @@ public class Controller extends FirstPersonCameraController {
     }
 
     public void move(){
-        //if (grid.hittingBlock(camera.position,tmpVec) != 0)
-        //{
-        //    moveVector = new Vector3(grid.checkNearby(camera,tmpVec,grid.hittingBlock(camera.position,tmpVec)));
-        //    camera.position.set(moveVector);
-        //}
-        //else
-        //{
+
             tmpVec.z += 0.5f * camera.direction.z;
             tmpVec.x += 0.5f * camera.direction.x;
             camera.position.set(tmpVec);
-        //}
-
     }
 
     @Override

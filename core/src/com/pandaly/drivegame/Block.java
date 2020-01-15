@@ -66,7 +66,6 @@ public class Block implements Disposable
 
     public enum Type{
         DirtBlock,
-        AirBlock,
         StoneBlock;
     }
 
