@@ -1,3 +1,9 @@
+//==========================================
+//	Title:  FlatLanders
+//	Author: Fabian Joßberger | Luke Behrsing
+//	Date:   15 Jan 2020
+//==========================================
+
 package com.pandaly.drivegame;
 
 import com.badlogic.gdx.graphics.GL20;
@@ -49,10 +55,6 @@ public class Block implements Disposable
         return new Vector3(x, y, z);
     }
 
-    public Model getModel() {
-        return model;
-    }
-
     public ModelInstance getInstance() {
         return instance;
     }
@@ -67,12 +69,5 @@ public class Block implements Disposable
         AirBlock,
         StoneBlock;
     }
-
-    public void changeType(Type type)
-    {
-        this.type = type;
-    }
-
-
 
 }

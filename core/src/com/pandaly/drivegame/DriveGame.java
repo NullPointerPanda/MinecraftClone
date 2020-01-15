@@ -1,3 +1,10 @@
+//==========================================
+//	Title:  FlatLanders
+//	Author: Fabian Joßberger | Luke Behrsing
+//	Date:   15 Jan 2020
+//==========================================
+
+
 package com.pandaly.drivegame;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -47,18 +54,16 @@ public class DriveGame implements Screen{
 		this.game = game;
 	}
 
-	public DriveGame() {
-		super();
-	}
-
 	@Override
 	public void show() {
 		modelBatch = new ModelBatch();
 		environment = new Environment();
 		environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
 		environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
+
 		font = new BitmapFont();
 		batch = new SpriteBatch();
+
 		crosshairTexture = new Texture(Gdx.files.internal("Crosshair.png"));
 		crosshair = new Sprite(crosshairTexture);
 
@@ -73,7 +78,6 @@ public class DriveGame implements Screen{
 
 		camera = new PerspectiveCamera(fieldOfView, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		grid = new Grid();
-
 		camera.position.set(50f, 10f, 50f);
 		camera.direction.set(1.0f,0.0f,1.0f);
 		camera.near = cameraNear;
