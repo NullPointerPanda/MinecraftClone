@@ -60,3 +60,6 @@ Future extensions:
 - New block types
 - Physical functionalities in the controller
 
+
+||Author: Fabian Joßberger & Luke Behrsing||
+
